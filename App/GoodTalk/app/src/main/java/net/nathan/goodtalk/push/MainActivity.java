@@ -1,7 +1,9 @@
 package net.nathan.goodtalk.push;
 
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -13,12 +15,15 @@ import com.bumptech.glide.request.target.ViewTarget;
 
 import net.nathan.goodtalk.common.app.Activity;
 import net.nathan.goodtalk.common.widget.PortraitView;
+import net.nathan.goodtalk.push.helper.NavHelper;
 import net.qiujuer.genius.ui.widget.FloatActionButton;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+        implements BottomNavigationView.OnNavigationItemSelectedListener,
+        NavHelper.OnTabChangedListener<Integer>{
     @BindView(R.id.appbar)
     View mLayAppbar;
 
@@ -37,6 +42,8 @@ public class MainActivity extends Activity {
     @BindView(R.id.btn_action)
     FloatActionButton mAction;
 
+    private NavHelper mNavHelper;
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_main;
@@ -45,6 +52,12 @@ public class MainActivity extends Activity {
     @Override
     protected void initWidget() {
         super.initWidget();
+
+        mNavHelper = new NavHelper<>(this, R.id.lay_container,
+                getSupportFragmentManager(), this);
+
+        // 底部导航栏设置监听
+        mNavigation.setOnNavigationItemSelectedListener(this);
 
         Glide.with(this)
                 .load(R.drawable.bg_src_morning)
@@ -70,5 +83,20 @@ public class MainActivity extends Activity {
     @OnClick(R.id.btn_action)
     void onActionClick() {
 
+    }
+
+    /**
+     *
+     * @param item
+     * @return true代表能处理点击，然后才会切换导航栏
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return mNavHelper.performClickMenu(item.getItemId());
+    }
+
+    @Override
+    public void onTabChanged(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
+        
     }
 }
