@@ -2,6 +2,7 @@
 
     <style name="Theme.private" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
+        <!--复写主色调-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -23,6 +24,7 @@
         <!--ToolBar-->
         <item name="actionBarSize">@dimen/len_48</item>
         <!-- Nav icon -->
+        <!--左上角返回icon-->
         <item name="homeAsUpIndicator">@drawable/ic_back</item>
 
         <!--ToolBar custom-->
